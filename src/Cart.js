@@ -1,16 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { loadStripe } from "@stripe/stripe-js";
 import Input from "./Input.js";
 import Button from "./Button.js";
+import { AppContext } from "./AppContext.js";
 
 // TODO: Replace with your own publishable key
 const stripeLoadedPromise = loadStripe("PK_REPLACE_WITH_YOUR_PUBLISHABLE_KEY");
 
-export default function Cart({ cart }) {
-  const totalPrice = cart.reduce(
-    (total, product) => total + product.price * product.quantity,
-    0
-  );
+export default function Cart() {
+  const app = useContext(AppContext);
+  const cart = app.cart;
+  const totalPrice = app.getTotalPrice();
 
   const [email, setEmail] = useState("");
 

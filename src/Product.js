@@ -1,13 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import Button from "./Button.js";
+import { AppContext } from "./AppContext.js";
 
 export default function Product(props) {
   const { details } = props;
+  const app = useContext(AppContext);
 
-  const productFromCart = props.cart.find(
-    (product) => product.id === details.id
-  );
+  const productFromCart = app.getProductFromCart(details.id);
   const quantity = productFromCart ? productFromCart.quantity : 0;
 
   return (
@@ -37,14 +37,14 @@ export default function Product(props) {
           {quantity > 0 && (
             <Button
               outline
-              onClick={() => props.onProductDelete(details.id)}
+              onClick={() => app.onProductDelete(details.id)}
               className="product-delete"
             >
               x
             </Button>
           )}
         </div>
-        <Button outline onClick={() => props.onProductAdd(details)}>
+        <Button outline onClick={() => app.onProductAdd(details)}>
           ${details.price}
         </Button>
       </div>
