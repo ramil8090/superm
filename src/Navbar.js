@@ -1,11 +1,11 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
-import { AppContext } from "./AppContext";
 import Button from "./Button";
+import { cartCountSelector } from "./store.js";
 
-export default function Navbar(props) {
-  const app = useContext(AppContext);
-  const cartCount = app.getCartCount();
+export default function Navbar() {
+  const cartCount = useSelector(cartCountSelector);
   const [isDarkTheme, setIsDarkTheme] = useState(false);
 
   useEffect(() => {

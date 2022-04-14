@@ -1,17 +1,18 @@
-import React, { useState, useEffect, useContext } from "react";
+import React from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
+import { Provider } from "react-redux";
+import { store } from "./store.js";
 import Navbar from "./Navbar.js";
 import Home from "./Home.js";
 import About from "./About.js";
 import Products from "./Products.js";
 import ProductDetails from "./ProductDetails.js";
 import Cart from "./Cart.js";
-import { AppProvider } from "./AppContext.js";
 
 function App() {
 
   return (
-    <AppProvider>
+    <Provider store={store}>
       <BrowserRouter>
         <Navbar />
         <div className="container">
@@ -34,7 +35,7 @@ function App() {
           </Switch>
         </div>
       </BrowserRouter>
-    </AppProvider>
+    </Provider>
   );
 }
 

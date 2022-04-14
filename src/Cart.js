@@ -1,16 +1,17 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import { loadStripe } from "@stripe/stripe-js";
+import { useSelector } from "react-redux";
 import Input from "./Input.js";
 import Button from "./Button.js";
-import { AppContext } from "./AppContext.js";
+import { cartValueSelector } from "./store.js";
+
 
 // TODO: Replace with your own publishable key
 const stripeLoadedPromise = loadStripe("PK_REPLACE_WITH_YOUR_PUBLISHABLE_KEY");
 
 export default function Cart() {
-  const app = useContext(AppContext);
-  const cart = app.cart;
-  const totalPrice = app.getTotalPrice();
+  const cart = useSelector(state => state.cart);
+  const totalPrice = useSelector(cartValueSelector);
 
   const [email, setEmail] = useState("");
 

@@ -6,7 +6,7 @@ export default function About() {
       <div>
         <h1>About Us</h1>
         <p>
-          We started operations in 2020. We guarantee fresh produce.
+          We started operations in 2022. We guarantee fresh produce.
           <br />
           Save time by shopping on our app and we'll deliver the products right
           to your home. <br />

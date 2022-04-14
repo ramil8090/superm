@@ -1,14 +1,26 @@
-import React, { useContext } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
 import Button from "./Button.js";
-import { AppContext } from "./AppContext.js";
+import { addProduct, removeProduct } from "./store.js";
 
 export default function Product(props) {
   const { details } = props;
-  const app = useContext(AppContext);
+  const dispatch = useDispatch();
+  const cart = useSelector(state => state.cart);
 
-  const productFromCart = app.getProductFromCart(details.id);
+  const productFromCart = cart.find(
+    (product) => product.id === details.id
+  );
   const quantity = productFromCart ? productFromCart.quantity : 0;
+
+  const onAddProduct = (product) => {
+    dispatch(addProduct(product));
+  };
+
+  const onRemoveProduct = (product) => {
+    dispatch(removeProduct(product));
+  };
 
   return (
     <div className="product">
@@ -37,14 +49,14 @@ export default function Product(props) {
           {quantity > 0 && (
             <Button
               outline
-              onClick={() => app.onProductDelete(details.id)}
+              onClick={() => { onRemoveProduct(details) }}
               className="product-delete"
             >
               x
             </Button>
           )}
         </div>
-        <Button outline onClick={() => app.onProductAdd(details)}>
+        <Button outline onClick={() => onAddProduct(details)}>
           ${details.price}
         </Button>
       </div>
